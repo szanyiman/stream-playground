@@ -16,7 +16,7 @@ public abstract class Repository<T> {
     private List<T> elements;
 
     /**
-     * Creates a {@Repository} object to obtain a list of objects of
+     * Creates a {@code Repository} object to obtain a list of objects of
      * {@code elementClass}. The classloader of {@code elementClass} is used to
      * read JSON data.
      *
