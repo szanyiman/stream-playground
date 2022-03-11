@@ -11,6 +11,6 @@ public enum Region {
     @JsonProperty("Asia") ASIA,
     @JsonProperty("Europe") EUROPE,
     @JsonProperty("Oceania") OCEANIA,
-    @JsonProperty("Polar") POLAR;
+    @JsonProperty("Polar") POLAR
 
 }
