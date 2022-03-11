@@ -26,7 +26,7 @@ public abstract class Repository<T> {
      */
     protected Repository(Class<T> elementClass, String resourceName) {
         try {
-            elements = JacksonHelper.readList(elementClass.getResourceAsStream("countries.json"), elementClass);
+            elements = JacksonHelper.readList(elementClass.getResourceAsStream(resourceName), elementClass);
         } catch(IOException e) {
             e.printStackTrace();
             throw new AssertionError("Failed to load resource " + resourceName, e); // Can't happen
