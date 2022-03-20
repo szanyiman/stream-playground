@@ -55,10 +55,10 @@ countries.stream().
   sorted(Comparator.comparingInt(country -> country.getTimezones().size())).
   forEach(country -> System.out.printf("%s:%d\n", country.getName(), country.getTimezones().size()));
 
-// 9. Returns the number of countries with no Spanish country name translation (the Spanish language is identified by the language code "es"):
+// 9. Returns the number of countries with no Farsi country name translation (the Farsi language is identified by the language code "fa"):
 
 countries.stream().
-  filter(country -> ! country.getTranslations().containsKey("es")).
+  filter(country -> ! country.getTranslations().containsKey("fa")).
   count();
 
 // 10. Prints the names of countries with null area:
