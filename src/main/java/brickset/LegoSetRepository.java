@@ -1,6 +1,8 @@
 package brickset;
 import repository.Repository;
 import java.util.Comparator;
+import java.util.*;
+import java.util.stream.Collectors;
 public class LegoSetRepository extends Repository<LegoSet> {
 
     public LegoSetRepository() {
@@ -65,14 +67,55 @@ public class LegoSetRepository extends Repository<LegoSet> {
                 forEach(System.out::println);
     }
 
+    public boolean returnIfAnySetsHaveBiggerNumberOfPiecesThanGivenNumber() {
+        return getAll().stream()
+                .map(LegoSet::getPieces)
+                .anyMatch(piece -> piece < 450);
+    }
+
+    public void printLegoSetsTagWithNoDimensions() {
+        getAll().stream()
+                .filter(brickset -> brickset.getDimensions() == null && brickset.getTags() != null)
+                .flatMap(brickset ->  brickset.getTags().stream())
+                .distinct()
+                .forEach(System.out::println);
+    }
+
+    public int sumsAllLegoSetPieces(){
+        int sum = getAll().stream()
+                .map(LegoSet::getPieces)
+                .reduce(0, (firstPieces, secondPieces) -> firstPieces + secondPieces);
+        return sum;
+    }
+
+    public Map<String, Long> printNumberOfSetsForThemes() {
+        return getAll().stream()
+                .collect(Collectors.groupingBy(LegoSet::getTheme, Collectors.counting()));
+    }
+
+    public Map<String, Set<String>> printMapOfAllThemesWithNames() {
+        return getAll().stream()
+                .collect(Collectors.groupingBy(LegoSet::getTheme,
+                        Collectors.mapping(LegoSet::getName,
+                                Collectors.filtering(Objects::nonNull,
+                                        Collectors.toSet()))));
+    }
     public static void main(String[] args) {
 
+
         var repo = new LegoSetRepository();
+        /*
         repo.printLegoSetsNameWithLimit(10);
         System.out.println(repo.countLegoSetsWithPieces(230));
         System.out.println(repo.printLegoSetsAverageOfPieces());
         repo.printLegoSetsNameInReverseAlphabeticalOrder();
         repo.printLegoSetsName("Ferrari");
+        */
+        System.out.println(repo.returnIfAnySetsHaveBiggerNumberOfPiecesThanGivenNumber());
+        repo.printLegoSetsTagWithNoDimensions();
+        System.out.println(repo.sumsAllLegoSetPieces());
+        System.out.println(repo.printNumberOfSetsForThemes());
+        System.out.println(repo.printMapOfAllThemesWithNames());
 
     }
 }
