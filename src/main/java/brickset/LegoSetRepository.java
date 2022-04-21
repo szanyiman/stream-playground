@@ -67,12 +67,20 @@ public class LegoSetRepository extends Repository<LegoSet> {
                 forEach(System.out::println);
     }
 
+    /**
+     * Returns true if any of the legosets has fewer pieces than 450.
+     *
+     * @return true if any of the legosets has fewer pieces than 450.
+     */
     public boolean returnIfAnySetsHaveBiggerNumberOfPiecesThanGivenNumber() {
         return getAll().stream()
                 .map(LegoSet::getPieces)
                 .anyMatch(piece -> piece < 450);
     }
 
+    /**
+     * Prints every LEGO sets tag that has no dimensions
+     */
     public void printLegoSetsTagWithNoDimensions() {
         getAll().stream()
                 .filter(brickset -> brickset.getDimensions() == null && brickset.getTags() != null)
@@ -81,6 +89,11 @@ public class LegoSetRepository extends Repository<LegoSet> {
                 .forEach(System.out::println);
     }
 
+    /**
+     * Returns the sum of all LegoSet pieces.
+     *
+     * @return the sum of all LegoSet pieces as an integer number.
+     */
     public int sumsAllLegoSetPieces(){
         int sum = getAll().stream()
                 .map(LegoSet::getPieces)
@@ -88,11 +101,21 @@ public class LegoSetRepository extends Repository<LegoSet> {
         return sum;
     }
 
+    /**
+     * Returns a Map object with the summary of LegoSets themes and their frequency.
+     *
+     * @return {@code Map<String, Long>} object collects the amount of LegoSets that have the same theme.
+     */
     public Map<String, Long> printNumberOfSetsForThemes() {
         return getAll().stream()
                 .collect(Collectors.groupingBy(LegoSet::getTheme, Collectors.counting()));
     }
 
+    /**
+     * Returns a Map object, that contains every theme with their distinct names.
+     *
+     * @return {@code Map<String, Set<String>>} object collects the LegoSets themes with their names.
+     */
     public Map<String, Set<String>> printMapOfAllThemesWithNames() {
         return getAll().stream()
                 .collect(Collectors.groupingBy(LegoSet::getTheme,
@@ -100,6 +123,7 @@ public class LegoSetRepository extends Repository<LegoSet> {
                                 Collectors.filtering(Objects::nonNull,
                                         Collectors.toSet()))));
     }
+
     public static void main(String[] args) {
 
 
